@@ -33,21 +33,36 @@ namespace CSharpMastery
         Friday	        32	            0100000
         Saturday	    64	            1000000
 
+        To properly implement an enumeration as a flag, you need to have the values increasing by a power of two.
+
+        [Flags]
+        public enum DaysOfTheWeek
+        {
+            Sunday = 1,
+            Monday = 2,
+            Tuesday = 4,
+            Wednesday = 8,
+            Thursday = 16,
+            Friday = 32,
+            Saturday = 64
+        }
+
+
+        Through the use of bit shifting, we can move the 1 bit sequentially without having to worry about the actual integer value.
+        Think of flags as a series of bit switches.  
+        The left-shift operator (<<) shifts its first operand left by the number of bits specified by its second operand.
     */
-
-
-    //ADD THE BIT SHIFTING!!!!!!
 
     [Flags]
     public enum DaysOfTheWeek
     {
         Sunday = 1,
-        Monday = 2,
-        Tuesday = 4,
-        Wednesday = 8,
-        Thursday = 16,
-        Friday = 32,
-        Saturday = 64
+        Monday = 1 << 1,
+        Tuesday = 1 << 2,
+        Wednesday = 1 << 3,
+        Thursday = 1 << 4,
+        Friday = 1 << 5,
+        Saturday = 1 << 6,
     }
 
     public class MySchedule
