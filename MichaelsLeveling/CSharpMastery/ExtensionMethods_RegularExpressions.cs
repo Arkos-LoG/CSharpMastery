@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CSharpMastery
 {
-    public static class ExtensionMethod
+    public static class ExtensionMethods_RegularExpressions
     {
         public static string DeleteSpaces(this string source)
         {

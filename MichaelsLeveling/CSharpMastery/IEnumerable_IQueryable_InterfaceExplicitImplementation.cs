@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CSharpMastery
 {
-    public class IEnumerable_InterfaceExplicitImplementation
+    public class IEnumerable_IQueryable_InterfaceExplicitImplementation
     {
         // IEnumerable is the base interface for all non-generic collections that can be enumerated (foreach'd)
         // Also,

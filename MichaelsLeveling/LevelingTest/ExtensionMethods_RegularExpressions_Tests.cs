@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace LevelingTest
 {
     [TestClass]
-    public class ExtensionMethodsTest
+    public class ExtensionMethods_RegularExpressions_Tests
     {
         [TestMethod]
         public void DeleteSpacesTestValid()

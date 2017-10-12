@@ -52,11 +52,11 @@
   <ItemGroup>
     <Compile Include="AbstractClass_Interfaces_Override_Virtual_Sealed_Tests.cs" />
     <Compile Include="BitwiseOps_Params_Enums_Casting_ArrayInit_Tests.cs" />
-    <Compile Include="IEnumerable_InterfaceExplicitImplementationTests.cs" />
-    <Compile Include="MethodOverloadingTests.cs" />
+    <Compile Include="IEnumerable_IQueryable_InterfaceExplicitImplementation_Tests.cs" />
+    <Compile Include="MethodOverloading_Tests.cs" />
     <Compile Include="ReflectionTestRunner.cs" />
-    <Compile Include="StringInterpolationTests.cs" />
-    <Compile Include="ExtensionMethodTest.cs" />
+    <Compile Include="StringInterpolation_Tests.cs" />
+    <Compile Include="ExtensionMethods_RegularExpressions_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Struct_ObjectInit_Tests.cs" />
   </ItemGroup>

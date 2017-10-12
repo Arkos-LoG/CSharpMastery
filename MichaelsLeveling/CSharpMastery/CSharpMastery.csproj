@@ -42,8 +42,8 @@
   <ItemGroup>
     <Compile Include="AbstractClass_Interfaces_Override_Virtual_Sealed.cs" />
     <Compile Include="BitwiseOps_Params_Enums_Casting_ArrayInit.cs" />
-    <Compile Include="ExtensionMethod.cs" />
-    <Compile Include="IEnumerable_InterfaceExplicitImplementation.cs" />
+    <Compile Include="ExtensionMethods_RegularExpressions.cs" />
+    <Compile Include="IEnumerable_IQueryable_InterfaceExplicitImplementation.cs" />
     <Compile Include="MethodOverloading.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringInterpolation.cs" />

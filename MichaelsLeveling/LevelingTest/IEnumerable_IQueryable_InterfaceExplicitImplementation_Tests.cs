@@ -9,12 +9,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace LevelingTest
 {
     [TestClass]
-    public class IEnumerable_InterfaceExplicitImplementationTests
+    public class IEnumerable_IQueryable_InterfaceExplicitImplementation_Tests
     {
         [TestMethod]
         public void FourLeggedAnimalsGetEnumeratorValid()
         {
-            var animals = new IEnumerable_InterfaceExplicitImplementation.FourLeggedAnimals();
+            var animals = new IEnumerable_IQueryable_InterfaceExplicitImplementation.FourLeggedAnimals();
 
             animals[0] = new Cat();
 
@@ -28,7 +28,7 @@ namespace LevelingTest
         [TestMethod]
         public void FourLeggedAnimalsAsQueryable()
         {
-            var animals = new IEnumerable_InterfaceExplicitImplementation.FourLeggedAnimals();
+            var animals = new IEnumerable_IQueryable_InterfaceExplicitImplementation.FourLeggedAnimals();
 
             animals[0] = new Cat();
             animals[1] = new Dog();

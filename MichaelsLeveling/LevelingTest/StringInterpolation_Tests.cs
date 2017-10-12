@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace LevelingTest
 {
     //[TestClass]
-    public class StringInterpolationTests : ISupportReflectionTestRunner<SomeClass>
+    public class StringInterpolation_Tests : ISupportReflectionTestRunner<SomeClass>
     {
         public SomeClass SomeRequiredMethodForReflectionTestRunner()
         {

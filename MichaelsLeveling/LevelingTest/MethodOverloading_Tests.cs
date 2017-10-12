@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace LevelingTest
 {
     //[TestClass]
-    public class MethodOverloadingTests : ISupportReflectionTestRunner<SomeClass>
+    public class MethodOverloading_Tests : ISupportReflectionTestRunner<SomeClass>
     {
         public SomeClass SomeRequiredMethodForReflectionTestRunner()
         {
