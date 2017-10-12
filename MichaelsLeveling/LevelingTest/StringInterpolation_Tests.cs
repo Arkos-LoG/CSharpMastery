@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using CSharpMastery;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CSharpMastery;
 
 namespace LevelingTest
 {

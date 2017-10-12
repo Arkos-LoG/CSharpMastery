@@ -1,6 +1,5 @@
 ﻿using System;
 using CSharpMastery;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace LevelingTest
 {

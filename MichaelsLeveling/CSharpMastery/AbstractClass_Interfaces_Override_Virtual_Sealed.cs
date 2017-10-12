@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-// MAYBE DO THIS https://dotnetfiddle.net/zTSI7P 
 
 namespace CSharpMastery
 {
@@ -22,8 +16,6 @@ namespace CSharpMastery
     They are also implicitly virtual so you don’t have to use abstract keyword in front of the members
      
     !!! Program to an abstraction rather than a concrete type  Program to an interface rather than a concrete class !!!
-
-
 
      ***********************************************
      * 

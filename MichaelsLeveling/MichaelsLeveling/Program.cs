@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CSharpMastery;
 using LevelingTest;
 
 namespace MichaelsLeveling
@@ -15,6 +10,7 @@ namespace MichaelsLeveling
             ReflectionTestRunner.RunTestsFor<Struct_ObjectInit_Tests>();
             ReflectionTestRunner.RunTestsFor<StringInterpolation_Tests>();
             ReflectionTestRunner.RunTestsFor<MethodOverloading_Tests>();
+
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("NOW SHOW WHAT default KEYWORD DOES");
             Console.WriteLine($"print default(Int32): {default(Int32)}"); // Prints "0"

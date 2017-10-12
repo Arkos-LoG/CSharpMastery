@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace LevelingTest
 {
@@ -14,14 +9,14 @@ namespace LevelingTest
         public string Description { get; set; }
     }
 
-    public interface ISupportReflectionTestRunner<out R> where R : SomeClass  //, in A> where R : SomeDerivedClass where A : SomeClass   // out keyword in generics is used to denote that the type T in the interface is covariant
+    public interface ISupportReflectionTestRunner<out R> where R : SomeClass   // out keyword in generics is used to denote that the type T in the interface is covariant
     {
         R SomeRequiredMethodForReflectionTestRunner();
     }
 
     /****************************************************************************************
      
-        Generics and constraints - covariance with out above... !!!!!!!!! still not sure how it really works !!!!!!!!!
+        Generics and constraints
         Reflection and BindingFlags
         LINQ
         String Interpolation
@@ -80,13 +75,3 @@ namespace LevelingTest
 // https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/covariance-contravariance/creating-variant-generic-interfaces 
 // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/out-generic-modifier
 // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/in-generic-modifier
-
-
-// failedTests.Add(m.Name)
-// display all the failed tests, or a message that everything passed
-//if (failedTests.Any())
-//    Console.WriteLine("Failed Tests: \r\n\r\n{0}", string.Join("\r\n", failedTests));
-//else
-//    Console.WriteLine($"All {typeOfTests.Name} passed!");
-
-//        if (Convert.ToBoolean(m.Invoke(testsInstance, null)) != true)
