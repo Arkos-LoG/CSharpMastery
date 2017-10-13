@@ -15,7 +15,8 @@ namespace CSharpMastery
         public class FourLeggedAnimals : IEnumerable<AbstractClass_Interfaces_Override_Virtual_Sealed>  // this inherits IEnumerable, so both have to be implemented
         {                                                               // one has to be done with explicit implementation...
 
-            private List<AbstractClass_Interfaces_Override_Virtual_Sealed> _fourLeggedAnimals = new List<AbstractClass_Interfaces_Override_Virtual_Sealed>();
+            private readonly IList<AbstractClass_Interfaces_Override_Virtual_Sealed> _fourLeggedAnimals = new List<AbstractClass_Interfaces_Override_Virtual_Sealed>();
+
 
             public AbstractClass_Interfaces_Override_Virtual_Sealed this[int index]
             {
@@ -23,9 +24,34 @@ namespace CSharpMastery
                 set { _fourLeggedAnimals.Insert(index, value); }
             }
 
+            public void Add(AbstractClass_Interfaces_Override_Virtual_Sealed item)
+            {
+                _fourLeggedAnimals.Add(item);
+            }
+
             public IEnumerator<AbstractClass_Interfaces_Override_Virtual_Sealed> GetEnumerator()
             {
-                return _fourLeggedAnimals.GetEnumerator();
+                //NOTE: could do this -> return _fourLeggedAnimals.GetEnumerator();
+                // but this is more fun using yield
+
+                foreach (var o in _fourLeggedAnimals)
+                {
+                    // Lets check for end of list (its bad code since we used arrays)
+                    if (o == null)
+                    {
+                        break;
+                    }
+
+                    // Return the current element and then on next function call 
+                    // resume from next element rather than starting all over again;
+                    yield return o;
+                    // yield is capable of saving its state while returning the value. i.e. when the function is called second time, 
+                    // it will continue the processing from where is has returned in the previous call.
+                }
+
+                // NOTE: using the yield return statement is that the function should return an IEnumerable 
+                // and should be called from an iteration block i.e. foreach statement.
+                // for more info: https://www.codeproject.com/Articles/474678/A-Beginners-Tutorial-on-Implementing-IEnumerable-I 
             }
 
             //

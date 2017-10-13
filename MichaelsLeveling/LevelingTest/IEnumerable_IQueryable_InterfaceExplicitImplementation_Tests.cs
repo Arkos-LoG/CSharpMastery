@@ -1,22 +1,43 @@
 ﻿using System.Linq;
 using CSharpMastery;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using IEnumerableStuff = CSharpMastery.IEnumerable_IQueryable_InterfaceExplicitImplementation;
 
 namespace LevelingTest
 {
+    // NOTE: great resource to see what all the generic collection types support https://www.codeproject.com/Articles/829624/Know-your-collections-from-IEnumerable-to-List-and
+    // resource for toList or Not toList https://codereview.stackexchange.com/questions/66756/method-returning-ienumerablet-should-tolist-or-not 
+
     [TestClass]
     public class IEnumerable_IQueryable_InterfaceExplicitImplementation_Tests
     {
         [TestMethod]
         public void FourLeggedAnimalsGetEnumeratorValid()
         {
-            var animals = new IEnumerable_IQueryable_InterfaceExplicitImplementation.FourLeggedAnimals();
+            var animalsExptected = new IEnumerableStuff.FourLeggedAnimals();
 
-            animals[0] = new Cat();
+            animalsExptected[0] = new Cat();
+            animalsExptected[1] = new Dog();
+            animalsExptected[2] = new BigDog();
 
-            var animal = animals.Take(1).First();
+            var actualAnimals = new IEnumerableStuff.FourLeggedAnimals();
 
-            Assert.IsInstanceOfType(animal, typeof(Cat));
+            foreach (var a in animalsExptected)
+            {
+                actualAnimals.Add(a);
+            }
+
+            Assert.IsTrue(actualAnimals.SequenceEqual(animalsExptected));
+        }
+
+        [TestMethod]
+        public void FourLeggedAnimalsAddValid()
+        {        
+            var animals = new IEnumerableStuff.FourLeggedAnimals {new Cat()}; // can do collection initialization with Add
+
+            var animal = animals.First();
+
+            Assert.IsInstanceOfType(animal, typeof(Cat));     
         }
 
         // the query variable itself never holds the query results and only stores the query commands.Execution of the query is 
@@ -24,7 +45,7 @@ namespace LevelingTest
         [TestMethod]
         public void FourLeggedAnimalsAsQueryable()
         {
-            var animals = new IEnumerable_IQueryable_InterfaceExplicitImplementation.FourLeggedAnimals();
+            var animals = new IEnumerableStuff.FourLeggedAnimals();
 
             animals[0] = new Cat();
             animals[1] = new Dog();
@@ -41,7 +62,7 @@ namespace LevelingTest
 
             IQueryable<AbstractClass_Interfaces_Override_Virtual_Sealed> dogs = query.Where(p => p is Dog);
 
-            var dog = dogs.Take(1).FirstOrDefault();
+            var dog = dogs.FirstOrDefault();
             Assert.IsNotNull(dog);
 
             // This means that you can execute a query as frequently as you want to. 

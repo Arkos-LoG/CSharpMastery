@@ -11,11 +11,51 @@ namespace CSharpMastery
     Does not contain implementation details but provides declarations for what should be implemented
     It is an API for an object – guaranteed for the class implementing the interface to have members the interface describes, providing implementation details
     Can only inherit from one abstract class but can implement multiple interfaces
+    
     Interface is ultimate abstraction because it contains no implementation details but tells what your software needs
     Cannot use access modifiers like public; members of interface have to be available so they are always public
     They are also implicitly virtual so you don’t have to use abstract keyword in front of the members
      
-    !!! Program to an abstraction rather than a concrete type  Program to an interface rather than a concrete class !!!
+    !!! Program to an abstraction rather than a concrete type  Program to an interface rather than a concrete class !!!
+    
+    Great example here https://stackoverflow.com/questions/383947/what-does-it-mean-to-program-to-an-interface 
+
+     class DiningRoom {
+
+       DiningRoom(Person[] diningPeople, IPest[] pests) { ... }   <-- NOTICE IPest
+
+       void ServeDinner() {
+         when diningPeople are eating,
+
+           foreach pest in pests
+             pest.BeAnnoying();
+
+          // a member of pests array could be class HouseFly : IPest; or class Telemarketer : IPest
+       }
+     }    
+    
+     ANOTHER NOTE: IN SOLID Interfaces help accomplish Dependency inversion principle
+
+            The two rules:
+        •	High-level modules should not depend on low-level modules. Both should depend on abstractions.
+        •	Abstractions should not depend on details. Details should depend on abstractions.
+
+    They are used in Dependency Injection (help create loosely coupled classes)
+    They are used in Composition over Inheritance
+
+    -- Composition Implementation - using interfaces for composition in C# allows for a highly flexible design. 
+
+    Identify behaviors that would have been in a base class.  For instance, a vehicle base class may have steering, accelerating, and a manufacturer.  
+    Instead of making these abstract to be overridden, make interfaces for these items.  So… IAccelerate, ISteer, IManufacture, etc.  
+    Interfaces represent the behaviors the system must have.  Interfaces allow for polymorphic behavior.
+    Then have a IVehicle interface that has these behaviors interfaces.
+
+    Interface IVehicle
+    {
+	    ISteering Steering { get; }
+	    IAccelerate Accelerate { get; }
+        IManufacture Manufacture { get; }
+    }
 
      ***********************************************
      * 
