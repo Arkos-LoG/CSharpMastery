@@ -65,6 +65,29 @@ namespace LevelingTest
     }
 }
 
+
+/*   -- MORE REFLECTION --
+ 
+    #region Use Reflection to get the current HttpContext
+
+	Assembly[] asms = AppDomain.CurrentDomain.GetAssemblies(); // get list of currently loaded assemblies
+	var s = asms.First(a => a.ManifestModule.Name == "SuretyTrust.dll"); // get SuretyTrust
+
+	_httpContextCurrent = (HttpContext)(System.Reflection.Assembly.LoadFrom((s.GetModule("SuretyTrust.dll")).FullyQualifiedName)
+							.GetType("SuretyTrust.Code.Utility.ReflectionHelper")
+							.InvokeMember("ReturnHttpContext_Current", System.Reflection.BindingFlags.InvokeMethod, System.Type.DefaultBinder, new object(), new object[0]));
+
+	// .GetModule gives access to the FQN of path where SuretyTrust.dll is loaded -> something like ->  FullyQualifiedName: "C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\Temporary ASP.NET Files\\root\\b7994435\\e433a6ff\\assembly\\dl3\\fc82467c\\6647d660_d78fcf01\\SuretyTrust.dll"
+	// .LoadFrom then uses that FQN to load SuretyTrust.dll 
+	// .GetType gets us to static ReflectionHelper class (in SuretyTrust.dll) which we then invoke its method of ReturnHttpContext... to give us the current HttpContext
+	// the rest is documented @ http://msdn.microsoft.com/en-us/library/66btctbe.aspx & http://www.codeproject.com/Articles/38870/Examining-an-Assembly-at-Runtime
+
+	#endregion
+  
+ */
+
+
+
 // https://stackoverflow.com/questions/5152346/get-only-methods-with-specific-signature-out-of-type-getmethods 
 
 // covariance stuff:
