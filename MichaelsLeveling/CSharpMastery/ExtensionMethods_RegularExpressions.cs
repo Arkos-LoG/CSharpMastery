@@ -19,11 +19,16 @@ namespace CSharpMastery
 }
 
 /*
+ 
+------------------------------
+EXTENSION METHODS
+-----------------------------
+
 Allows you to add methods to any existing type.
 
 -Has to be inside of static class
 -Method has to be static
--Needs ‘this’ keyword if front of parameter of the static method
+-Needs ‘this’ keyword in front of parameter of the static method
     The first parameter represents the type being extended
 -Can be called like a static method or on the extended class
 */
@@ -32,7 +37,7 @@ Allows you to add methods to any existing type.
 // https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-language-quick-reference 
 // test regular expression https://regex101.com/ 
 
-/*  -- CONFIGURE RESHARPER TODOs --
+/*  -- CONFIGURE RESHARPER TODOs SOMETHING I DID AT AMTRUST 2014 --
  
 todo high        -> color = Aqua                  -> icon = Warning  -> reg expression:   (?<=\W|^)(?i)(?=TODO)(?i)(?=.*!!!)(\W|$|)(.*)
 todo log         -> color = OliveDrab             -> icon = Edit     -> reg expression:   (?<=\W|^)(?i)(?=TODO)(?i)(?=.*LOG )(\W|$|)(.*)  

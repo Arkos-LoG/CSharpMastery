@@ -12,7 +12,7 @@ namespace LevelingTest
         {
             List<AbstractClass_Interfaces_Override_Virtual_Sealed> animals = new List<AbstractClass_Interfaces_Override_Virtual_Sealed>
             {
-                new Cat(), new Dog()
+                new Cat(), new Dog() // cat and dog are AbstractClass_Interfaces_Override_Virtual_Sealed
             };
 
             var expectedDog = "I'm a dog!";
@@ -42,7 +42,7 @@ namespace LevelingTest
         {
             List<ICreature> creatures = new List<ICreature>
             {
-                new Cat(), new Dog()
+                new Cat(), new Dog() // cat and dog are ICreatures
             };
 
             var expectedDog = "I'm a dog!";
@@ -79,6 +79,9 @@ namespace LevelingTest
                 called = true;
             };
 
+            // 1. change property Name which will call... 
+            // 2. Setter for Name in abstract will invoke the function set above
+            // 3. that function will do an assert on the Name and set a flag that it's been called
             cat.Name = "Miss Kitty";
 
             Assert.IsTrue(called);
