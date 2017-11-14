@@ -4,12 +4,12 @@ using System.Reflection;
 
 namespace LevelingTest
 {
-    public class SomeClass
+    public class SomeType
     {
         public string Description { get; set; }
     }
 
-    public interface ISupportReflectionTestRunner<out R> where R : SomeClass   // out keyword in generics is used to denote that the type T in the interface is covariant
+    public interface ISupportReflectionTestRunner<R> where R : SomeType 
     {
         R SomeRequiredMethodForReflectionTestRunner();
     }
@@ -21,16 +21,18 @@ namespace LevelingTest
         LINQ
         String Interpolation
 
+        An example of GetAssemblies() is at the bottom (code I wrote in 2014 for AmTrust)
+
      ****************************************************************************************/
 
     // using reflection, run every test method that has bool for return type
-    // with BindingFlags only get the methods declared in the tests https://stackoverflow.com/questions/16609731/reflection-methodinfo-getmethods-include-only-methods-only-added-by-me
 
     public class ReflectionTestRunner
     {
-        // new() constraint https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/new-constraint 
+        // new() constraint specifies that any type argument in a generic class declaration must have a public parameterless constructor.
+        // resource: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/new-constraint  
 
-        public static void RunTestsFor<T>() where T  : ISupportReflectionTestRunner<SomeClass>, new() // specifies that any type argument in a generic class declaration must have a public parameterless constructor.
+        public static void RunTestsFor<T>() where T  : ISupportReflectionTestRunner<SomeType>, new() 
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
 
@@ -40,33 +42,43 @@ namespace LevelingTest
 
             Console.WriteLine($"Start {testType.Name}");
 
-            var testDescription = testType.GetMethods().First(m => m.ReturnType == typeof(SomeClass)).Invoke(testsInstance, null);
+            // the method with return type 'SomeType' will have the test description
+            var testDescription = testType.GetMethods().First(m => m.ReturnType == typeof(SomeType)).Invoke(testsInstance, null);
 
-            if (testDescription.GetType() != typeof(SomeClass))
+            if (testDescription == null || testDescription.GetType() != typeof(SomeType))
                 throw new InvalidOperationException();
 
-            Console.WriteLine($"Description: {(testDescription as SomeClass)?.Description}");
+            Console.WriteLine($"Description: {(testDescription as SomeType).Description}");
 
-            foreach (var m in testType.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
-                .Where(m => m.ReturnType == typeof(bool)))
+            /*
+             *  BINDING FLAGS
+             *  
+                FROM: https://msdn.microsoft.com/en-us/library/system.reflection.bindingflags(v=vs.110).aspx 
+                DeclaredOnly: Specifies that only members declared at the level of the supplied type's hierarchy should be considered. Inherited members are not considered.
+                Public: Specifies that public members are to be included in the search.
+                Instance: Specifies that instance members are to be included in the search.
+            */
+            foreach (var testMethod in testType.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
+                .Where(m => m.ReturnType == typeof(bool))) // <- only get test methods that return bool
             {
-                if (Convert.ToBoolean(m.Invoke(testsInstance, null)) != true)
+                if (Convert.ToBoolean(testMethod.Invoke(testsInstance, null)) != true)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"Failed: {m.Name}");
+                    Console.WriteLine($"Failed: {testMethod.Name}");
                 }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
-                    Console.WriteLine($"Passed: {m.Name}");
+                    Console.WriteLine($"Passed: {testMethod.Name}");
                 }
             }    
         }
     }
 }
-
-
-/*   -- MORE REFLECTION --
+  
+/*   -------------------------------------------------------------
+ *   -- MORE REFLECTION  I WROTE THIS IN 2014 OR SO FOR AMTRUST --
+ *   -------------------------------------------------------------
  
     #region Use Reflection to get the current HttpContext
 
@@ -77,24 +89,16 @@ namespace LevelingTest
 							.GetType("SuretyTrust.Code.Utility.ReflectionHelper")
 							.InvokeMember("ReturnHttpContext_Current", System.Reflection.BindingFlags.InvokeMethod, System.Type.DefaultBinder, new object(), new object[0]));
 
-	// .GetModule gives access to the FQN of path where SuretyTrust.dll is loaded -> something like ->  FullyQualifiedName: "C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\Temporary ASP.NET Files\\root\\b7994435\\e433a6ff\\assembly\\dl3\\fc82467c\\6647d660_d78fcf01\\SuretyTrust.dll"
-	// .LoadFrom then uses that FQN to load SuretyTrust.dll 
-	// .GetType gets us to static ReflectionHelper class (in SuretyTrust.dll) which we then invoke its method of ReturnHttpContext... to give us the current HttpContext
-	// the rest is documented @ http://msdn.microsoft.com/en-us/library/66btctbe.aspx & http://www.codeproject.com/Articles/38870/Examining-an-Assembly-at-Runtime
+    .GetModule gives access to the FQN of path where SuretyTrust.dll is loaded -> something like ->  FullyQualifiedName: "C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\Temporary ASP.NET Files\\root\\b7994435\\e433a6ff\\assembly\\dl3\\fc82467c\\6647d660_d78fcf01\\SuretyTrust.dll"
+	.LoadFrom then uses that FQN to load SuretyTrust.dll 
+	.GetType gets us to static ReflectionHelper class (in SuretyTrust.dll) which we then invoke its method of ReturnHttpContext... to give us the current HttpContext
+	
+    the rest is documented @ http://msdn.microsoft.com/en-us/library/66btctbe.aspx & http://www.codeproject.com/Articles/38870/Examining-an-Assembly-at-Runtime
 
 	#endregion
   
  */
 
 
-
+// RESOURCE:
 // https://stackoverflow.com/questions/5152346/get-only-methods-with-specific-signature-out-of-type-getmethods 
-
-// covariance stuff:
-// https://docs.microsoft.com/en-us/dotnet/standard/generics/covariance-and-contravariance 
-// https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/covariance-contravariance/index
-// https://msdn.microsoft.com/en-us/library/dd997386(VS.100).aspx
-// https://docs.microsoft.com/en-us/dotnet/standard/generics/covariance-and-contravariance#InterfaceCovariantTypeParameters 
-// https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/covariance-contravariance/creating-variant-generic-interfaces 
-// https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/out-generic-modifier
-// https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/in-generic-modifier

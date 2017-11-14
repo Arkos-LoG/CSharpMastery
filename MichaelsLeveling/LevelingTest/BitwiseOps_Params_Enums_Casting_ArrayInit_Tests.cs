@@ -9,65 +9,65 @@ namespace LevelingTest
     public class BitwiseOps_Params_Enums_Casting_ArrayInit_Tests
     {
         [TestMethod]
-        public void AssignSomeDaysOfWeekUsingFlags()
+        public void AssignMealsToEatOutUsingFlags()
         {
 
             // single pipe, "|", in C# is a logic operator, not conditional. 
-            // This means at a binary level, we OR each position of the binary values. 
-            // Boolean logic tells us in an OR situation the result is true when at least one condition is true; 
+            // used at binary level to OR each position of the binary values. 
+            // with an OR, the result is true when at least one condition is true; 
             // otherwise the result is false.         
 
             /*
                EXAMPLE:
                 
-               daysOfTheWeek = DaysOfTheWeek.Monday | DaysOfTheWeek.Wednesday | DaysOfTheWeek.Friday; 
+               MealsToEatOut  = Meals.Breakfast | Meals.Snack | Meals.Dinner; 
 
-                Monday	0	0	0	0	0	1	0
+             Breakfast 	0	0	0	0	0	0	1
 	                    |	|	|	|	|	|	|
-              Wednesday	0	0	0	1	0	0	0
+              Snack  	0	0	0	0	1	0	0
 	                    |	|	|	|	|	|	|
-                Friday	0	1	0	0	0	0	0
+              Dinner	0	0	0	1	0	0	0
                 ________________________________________
-                Result	0	1	0	1	0	1	0
+                Result	0	0	0	1	1	0	1
 
-               To test to see if our result value has a specific flag set. use the logical AND operator, "&", to test for the value. 
+               Use the logical AND operator "&" to see if the result has a flag set. 
 
-               if((daysOfTheWeek & DaysOfTheWeek.Monday) == DaysOfTheWeek.Monday)
+               if((MealsToEatOut & Meals.Breakfast) == Meals.Breakfast)
                 {
-                    // Contains Monday!
+                    // has Breakfast
                 }
                 else
                 {
-                    // DOES NOT Contain Monday!
+                    // DOES NOT have Breakfast
                 }
 
-                daysOfTheWeek	0	1	0	1	0	1	0
+                MealsToEatOut	0	0	0	1	1	0	1
 	                            &	&	&	&	&	&	&
-                        Monday	0	0	0	0	0	1	0
+                    Breakfast	0	0	0	0	0	0	1
                   ________________________________________
-                      Result	0	0	0	0	0	1	0   --> which is Monday!
+                      Result	0	0	0	0	0	0	1   --> has breakfast
 
              */
 
             //
             // Array Initializers
             // 
-            var expectedAppointments = new[] {DaysOfTheWeek.Monday, DaysOfTheWeek.Wednesday, DaysOfTheWeek.Friday};
-            // another way... DaysOfTheWeek[] = {DaysOfTheWeek.Monday, DaysOfTheWeek.Wednesday, DaysOfTheWeek.Friday};
-            var actualAppointments = new DaysOfTheWeek[3]; // create array length 3
+            var exepectedMealsToEatOut = new[] {Meals.Breakfast, Meals.Lunch, Meals.LateNight};
+            // another way... exepectedMealsToEatOut[] = {Meals.Breakfast, Meals.Lunch, Meals.LateNight};
+            var actualMealsToEatOut = new Meals[3]; // creates an array for three elements
 
-            MySchedule.SetSchedule(expectedAppointments); // using params here!
+            EatingOut.SetMealsToEatOut(exepectedMealsToEatOut); // using params here!
 
-            var daysOfTheWeek = Enum.GetValues(typeof(DaysOfTheWeek)).Cast<Enum>();// cast to Enum in order to do the Where...below
+            var meals = Enum.GetValues(typeof(Meals)).Cast<Enum>();// cast to Enum in order to do the Where...below
 
             var index = 0;
-            foreach (var appointment in daysOfTheWeek.Where(MySchedule.Schedule.HasFlag))
+            foreach (var appointment in meals.Where(EatingOut.MealsToEatOut.HasFlag))
             {
-                actualAppointments[index] = (DaysOfTheWeek)appointment;
+                actualMealsToEatOut[index] = (Meals)appointment;
                 index++;
             }
 
-            Assert.IsTrue(actualAppointments.SequenceEqual(expectedAppointments)); // https://www.dotnetperls.com/sequenceequal 
+            Assert.IsTrue(actualMealsToEatOut.SequenceEqual(exepectedMealsToEatOut)); // https://www.dotnetperls.com/sequenceequal 
         }
     }
 }

@@ -4,11 +4,11 @@ using CSharpMastery;
 namespace LevelingTest
 {
     //[TestClass]
-    public class MethodOverloading_Tests : ISupportReflectionTestRunner<SomeClass>
+    public class MethodOverloading_Tests : ISupportReflectionTestRunner<SomeType>
     {
-        public SomeClass SomeRequiredMethodForReflectionTestRunner()
+        public SomeType SomeRequiredMethodForReflectionTestRunner()
         {
-            return new SomeClass { Description = "Example(s) for method overloading" }; // object initialization
+            return new SomeType { Description = "Example(s) for method overloading" }; // object initialization
         }
 
         //[TestMethod]

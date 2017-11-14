@@ -3,11 +3,11 @@
 namespace LevelingTest
 {
     //[TestClass]
-    public class StringInterpolation_Tests : ISupportReflectionTestRunner<SomeClass>
+    public class StringInterpolation_Tests : ISupportReflectionTestRunner<SomeType>
     {
-        public SomeClass SomeRequiredMethodForReflectionTestRunner()
+        public SomeType SomeRequiredMethodForReflectionTestRunner()
         {
-            return new SomeClass { Description = "Example(s) with String Interpolation" }; // object initialization
+            return new SomeType { Description = "Example(s) with String Interpolation" }; // object initialization
         }
 
         //[TestMethod]

@@ -3,11 +3,11 @@
 namespace LevelingTest
 {
     //[TestClass]
-    public class Struct_ObjectInit_Tests : ISupportReflectionTestRunner<SomeClass>
+    public class Struct_ObjectInit_Tests : ISupportReflectionTestRunner<SomeType>
     {
-        public SomeClass SomeRequiredMethodForReflectionTestRunner()
+        public SomeType SomeRequiredMethodForReflectionTestRunner()
         {
-            return new SomeClass { Description = "Example(s) with Struct"}; // object initialization https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/object-and-collection-initializers 
+            return new SomeType { Description = "Example(s) with Struct"}; // object initialization https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/object-and-collection-initializers 
         }
 
         //[TestMethod]
