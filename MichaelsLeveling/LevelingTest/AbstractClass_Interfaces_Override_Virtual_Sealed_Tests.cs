@@ -6,7 +6,7 @@ namespace LevelingTest
 {
     [TestClass]
     public class AbstractClass_Interfaces_Override_Virtual_Sealed_Tests
-    {
+    {        
         [TestMethod]
         public void DescribeValidWithAbstractClass()
         {
@@ -65,6 +65,9 @@ namespace LevelingTest
 
             Assert.AreEqual(expectedDog, actualDog);
             Assert.AreEqual(expectedCat, actualCat);
+
+            // person has a FirstName and LastName property
+           
         }
 
         [TestMethod]
@@ -85,6 +88,61 @@ namespace LevelingTest
             cat.Name = "Miss Kitty";
 
             Assert.IsTrue(called);
+        }
+
+        //---------------------------------------------------------------------------------------
+        // READ ONLY AND CONST
+        //--------------------------------------------------------------------------------------- 
+
+        private readonly Cat _cat = new Cat();
+        private Dog _dog = new Dog();
+
+        public const int _myConst = 2; // const has to be assigned here where as readonly have to be assigned before constructor exits
+        public readonly int _myReadOnly;
+
+        // great resource for differences between readonly and const
+        // http://www.arungudelli.com/tutorial/c-sharp/10-differences-between-constant-vs-readonly-static-readonly-fields/
+
+        /*
+        From resource above:
+
+            const:
+            No Memory Allocated Because constant value embedded in IL code itself after compilation	
+            
+            readonly:
+            dynamic memory allocated for readonly fields and we can get the value at run time.
+
+            const:
+            Constants in C# are by default static.Can be accessed only through class name	
+            
+            readonly:
+            Readonly belongs to the object created so accessed through only through instance of class. 
+            To make it class member we need to add static keyword before readonly.
+                         
+        */
+
+        public AbstractClass_Interfaces_Override_Virtual_Sealed_Tests()
+        {
+            someFunction();
+        }
+
+        private void someFunction()
+        {
+            // every instance of the member marked as const will be replaced with its value during compilation, 
+            // the value 2 for _myConst is 'baked into' IL 
+            // while readonly members will be resolved at run-time.
+
+            // can't do this. _myReadOnly has to be assigned before the constructor exits
+            // _myReadOnly = 4;
+
+            // _cat = null; // can't set it null
+            _dog = null;
+
+            // constants are static you can access them like you would a static variable
+            var hi = AbstractClass_Interfaces_Override_Virtual_Sealed_Tests._myConst;
+
+            // doesn't exist
+            // AbstractClass_Interfaces_Override_Virtual_Sealed_Tests._myReadOnly;
         }
     }
 }

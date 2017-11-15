@@ -12,6 +12,23 @@ namespace LevelingTest
     public class IEnumerable_IQueryable_InterfaceExplicitImplementation_Tests
     {
         [TestMethod]
+        public void ExplicitInterfaceImplementationMethodCalling()
+        {
+            var expectedIFooSayHello = "IFoo.SayHello";
+            var expectedIBarSayHello = "IBar.SayHello";
+
+            var p = new Person();
+
+            var actualIFooSayHello = p.SayHello("IFoo");
+            var actualIBarSayHello = p.SayHello("IBar");
+            var actualSayHello = p.SayHello();
+
+            Assert.AreEqual(expectedIFooSayHello, actualIFooSayHello);
+            Assert.AreEqual(expectedIBarSayHello, actualIBarSayHello);
+            Assert.AreEqual("SayHello", actualSayHello);
+        }
+
+        [TestMethod]
         public void FourLeggedAnimalsGetEnumeratorValid()
         {
             var animalsExptected = new IEnumerableStuff.FourLeggedAnimals();

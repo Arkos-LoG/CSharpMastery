@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace CSharpMastery
@@ -63,4 +64,52 @@ namespace CSharpMastery
             }
         }
     }
+
+    public interface IFoo : IBar
+    {
+        string SayHello();
+    }
+
+    public interface IBar
+    {
+        string SayHello();
+    }
+
+    public class Person : IFoo
+    {
+
+        // not allowed to put public on this!
+        string IFoo.SayHello()
+        {
+            return "IFoo.SayHello";
+        }
+
+        // not allowed to put public on this!
+        string IBar.SayHello()
+        {
+            return "IBar.SayHello";
+        }
+
+        // https://stackoverflow.com/questions/2520727/why-cant-i-call-methods-within-a-class-that-explicitly-implements-an-interface
+        // When you explicitly implement the interface, 
+        // you first have to cast the object to the interface, 
+        // then you can call the method. In other words, 
+        // the method is only available when the method is invoked 
+        // on the object as the interface type, not as the concrete type. 
+        //
+
+        public string SayHello(string whichOne = "")
+        {
+            switch (whichOne)
+            {
+                case "IFoo":
+                    return ((IFoo)this).SayHello();
+                case "IBar":
+                    return ((IBar)this).SayHello();
+                default:
+                    return "SayHello";
+            }
+        }
+    }
+
 }
