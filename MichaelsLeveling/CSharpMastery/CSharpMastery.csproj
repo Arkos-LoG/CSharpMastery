@@ -46,6 +46,7 @@
     <Compile Include="IEnumerable_IQueryable_InterfaceExplicitImplementation.cs" />
     <Compile Include="MethodOverloading.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StrategyPattern.cs" />
     <Compile Include="StringInterpolation.cs" />
     <Compile Include="Struct.cs" />
   </ItemGroup>
